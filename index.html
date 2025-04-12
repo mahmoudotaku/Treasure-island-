@@ -1,2 +1,130 @@
+
 <!DOCTYPE html>
-<!-- المحتوى الكامل من التحديث السابق سيتم إدراجه هنا -->
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>Treasure Island - Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f3e5f5;
+      direction: rtl;
+    }
+    h1 {
+      text-align: center;
+      color: #6a1b9a;
+    }
+    .quiz-container {
+      max-width: 800px;
+      margin: auto;
+    }
+    .question {
+      margin-bottom: 20px;
+      background: #ffffff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(106, 27, 154, 0.2);
+      border: 2px solid #ba68c8;
+    }
+    .correct {
+      background-color: #d1c4e9;
+    }
+    .incorrect {
+      background-color: #f8bbd0;
+    }
+    .btn {
+      margin-top: 10px;
+      padding: 8px 15px;
+      background-color: #8e24aa;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #6a1b9a;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>اختبار الفصل العاشر - جزيرة الكنز<br>Chapter 10 - Treasure Island Quiz</h1>
+
+    <script>
+      const mcQuestions = [
+        ["لماذا عاد جيم إلى الجزيرة؟", "Why did Jim return to the island?", ["ليبحث عن الكنز / To search for treasure", "ليخبر أصدقاءه / To tell his friends", "للانضمام إلى القراصنة / To join the pirates"], 2],
+        ["ماذا رأى جيم بجانب الحصن؟", "What did Jim see near the fort?", ["شجرة / A tree", "نار مشتعلة / A fire", "قارب / A boat"], 2],
+        ["من الذي قبض على جيم؟", "Who captured Jim?", ["سيلفر / Silver", "الكابتن / The captain", "بن غن / Ben Gunn"], 1],
+        ["كيف شعر جيم عندما رأى النار؟", "How did Jim feel when he saw the fire?", ["سعيد / Happy", "متحمس / Excited", "منذهل / Surprised"], 3],
+        ["لماذا شعر جيم بالحزن رغم سعادته؟", "Why was Jim sad despite being happy?", ["لأنه خسر الكنز / Lost treasure", "لأن أصدقاءه لا يريدونه / His friends didn’t want him", "لأنه خائف / He was afraid"], 2],
+        ["ماذا قال سيلفر عن أصدقاء جيم؟", "What did Silver tell Jim about his friends?", ["يريدونه / They want him", "لا يريدونه / They don’t want him", "لا يعرف / He doesn’t know"], 2],
+        ["من الذي دافع عن جيم؟", "Who defended Jim?", ["الكابتن / The captain", "سيلفر / Silver", "بن غن / Ben Gunn"], 2],
+        ["ما موقف بعض القراصنة من سيلفر؟", "What was the pirates’ stance on Silver?", ["يدعمونه / Support him", "يريدون عزله / Want to replace him", "لا يهتمون / Don’t care"], 2],
+        ["ماذا عرض سيلفر على جيم؟", "What did Silver offer Jim?", ["الكنز / Treasure", "حمايته / Protection", "الهروب / Escape"], 2],
+        ["ما هو شعور جيم في نهاية الفصل؟", "How did Jim feel at the end of the chapter?", ["مرتاح / Relieved", "متحمس / Excited", "قلق / Worried"], 3],
+        ["لماذا كان من الغريب وجود نار؟", "Why was the fire surprising?", ["لأن الكابتن لا يضيع الخشب / Captain doesn’t waste wood", "لأنها شديدة / Too big", "لأنها في الليل / At night"], 1],
+        ["ماذا سأل سيلفر جيم؟", "What did Silver ask Jim?", ["عن أصدقائه / About his friends", "عن الكنز / About treasure", "عن السفينة / About the ship"], 3],
+        ["ماذا اعترف جيم للقراصنة؟", "What did Jim admit to the pirates?", ["أنه هرب / He escaped", "أنه أخذ السفينة / Took the ship", "أنه سرق الكنز / Stole treasure"], 2],
+        ["كيف حاول سيلفر جذب جيم؟", "How did Silver try to attract Jim?", ["بالهدايا / With gifts", "بإقناعه أنه مرحب به / Making him feel welcome", "بتهديده / By threatening"], 2],
+        ["من الذي وصفه سيلفر بالشجاع والذكي؟", "Who did Silver describe as brave and smart?", ["بن غن / Ben Gunn", "جيم / Jim", "الكابتن / Captain"], 2],
+        ["ماذا شعر جيم عندما علم أن أصدقاءه أحياء؟", "How did Jim feel knowing his friends were alive?", ["سعيد / Happy", "غاضب / Angry", "خائف / Afraid"], 1],
+        ["كيف وصف جيم القراصنة؟", "How did Jim describe the pirates?", ["مجانين / Mad", "خطرين / Dangerous", "لطفاء / Kind"], 2],
+        ["من هو القائد في الحصن؟", "Who is the leader in the fort?", ["الكابتن / Captain", "سيلفر / Silver", "بن غن / Ben Gunn"], 2],
+        ["لماذا دخل جيم الحصن؟", "Why did Jim enter the fort?", ["ليختبئ / To hide", "ليبحث عن الكنز / To find treasure", "ليخبر أصدقاءه / To tell his friends"], 3],
+        ["ما النتيجة من هذا الفصل؟", "What is the outcome of the chapter?", ["سلام / Peace", "توتر / Tension", "نجاح / Success"], 2]
+      ];
+
+      const essayQuestions = [
+        ["كيف أظهر جيم الشجاعة؟", "How did Jim show courage?", "اعترف بأنه قطع الحبل وأخذ السفينة"],
+        ["ما رأيك في قرار جيم بالعودة؟", "What do you think of Jim's decision to return?", "ليخبر أصدقاءه"],
+        ["هل كان سيلفر صادقًا في عرضه؟", "Was Silver honest in his offer?", "عرض الحماية"],
+        ["ناقش مشاعر جيم في نهاية الفصل؟", "Discuss Jim’s feelings at the end of the chapter", "قلق"],
+        ["ما الدروس التي يمكن تعلمها من هذا الفصل؟", "What lessons can be learned from this chapter?", "الشجاعة"],
+      ];
+
+      mcQuestions.forEach((q, index) => {
+        document.write(`<div class='question' id='mc${index+1}'>
+          <p>${index+1}. ${q[0]}<br><em>${q[1]}</em></p>`);
+        q[2].forEach((opt, i) => {
+          document.write(`<input type='radio' name='mc${index+1}' value='${i+1}'> ${opt}<br>`);
+        });
+        document.write(`<button class='btn' onclick='checkMC("mc${index+1}", ${q[3]})'>تحقق / Check</button></div>`);
+      });
+
+      essayQuestions.forEach((q, i) => {
+        const id = `essay${i+1}`;
+        document.write(`<div class='question' id='${id}'>
+          <p>${20+i+1}. ${q[0]}<br><em>${q[1]}</em></p>
+          <textarea id='${id}_input' rows='4' cols='50' placeholder='اكتب إجابتك هنا / Write your answer here'></textarea><br>
+          <button class='btn' onclick='checkEssay("${id}_input", "${q[2]}")'>تحقق / Check</button>
+        </div>`);
+      });
+
+      function checkMC(qid, correctValue) {
+        const q = document.getElementById(qid);
+        const radios = document.getElementsByName(qid);
+        let selected;
+        for (let r of radios) {
+          if (r.checked) selected = r.value;
+        }
+        if (!selected) return alert("اختر إجابة / Please select an answer");
+        q.classList.remove("correct", "incorrect");
+        q.classList.add(selected == correctValue ? "correct" : "incorrect");
+      }
+
+      function checkEssay(id, expectedAnswer) {
+        const input = document.getElementById(id);
+        const userAnswer = input.value.trim();
+        const parent = input.parentElement;
+        parent.classList.remove("correct", "incorrect");
+        if (userAnswer.includes(expectedAnswer)) {
+          parent.classList.add("correct");
+        } else {
+          parent.classList.add("incorrect");
+        }
+      }
+    </script>
+  </div>
+</body>
+</html>
